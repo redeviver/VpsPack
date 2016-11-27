@@ -6,7 +6,7 @@
 # para que o login que deseja, entre nesta regra de limite de login,
 # use esse comando para cria o login do usuario:
 # useradd -M -s /bin/false -d /home/logspermit <nomedologin>
-# para um controle de quem esta tentando execer esse limite,
+# para um controle de quem esta tentando passar esse limite,
 # crie esse arquivo junto com esse diretorio:
 # mkdir /etc/r3v1v3r/
 # depois:
