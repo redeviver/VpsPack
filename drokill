@@ -1,0 +1,37 @@
+# nano dropkill.sh e cole o script no diretorio /root
+# lembre-se de dar um " chmod +x dropkill.sh
+# comando para iniciar:
+# nohup ./dropkill.sh & # esse comando faz com que o script funcione em,
+# segundo plano mesmo que voce de logout.
+# para que o login que deseja, entre nesta regra de limite de login,
+# use esse comando para cria o login do usuario:
+# useradd -M -s /bin/false -d /home/logspermit <nomedologin>
+# para um controle de quem esta tentando execer esse limite,
+# crie esse arquivo junto com esse diretorio:
+# mkdir /etc/r3v1v3r/
+# depois:
+# touch /etc/r3v1v3r/limite.log
+
+while true
+do
+user=($(grep /home/logspermit /etc/passwd | cut -d: -f1))
+sleep 5.5s
+contador=$((0))
+tamanho=${#user[*]}
+limite=$((1))
+for ((contador=0; contador <= $tamanho-1; contador++))
+do
+userslogins=$(ps ax| grep dropbear | grep "${user[$contador]}" | wc -l)  
+calculo=$(($userslogins))
+if [ "$calculo" -gt "$limite" ]
+then
+pkill -9 -u "${user[$contador]}"
+#userdel --force "${user[$contador]}" # deleta o usuario caso deseje
+data=$(date '+%d/%m/%C%y %H:%M')
+echo Usuario "${user[$contador]}" excedeu o limite de logins e teve o acesso negado, Limite de Logins: 1 $data >> /etc/r3v1v3r/limite.log
+fi
+done
+done
+sync && echo 1 > /proc/sys/vm/drop_caches
+sync && echo 2 > /proc/sys/vm/drop_caches
+sync && echo 3 > /proc/sys/vm/drop_caches
