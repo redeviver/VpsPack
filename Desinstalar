@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Desinstalando..."
+echo "Removendo..."
 rm /bin/VpsPack
 rm /bin/UserBack
 rm -r /etc/usuarios /etc/tempo
@@ -14,4 +14,4 @@ rm /etc/add-host
 rm /etc/install-addhost
 rm /etc/Desinstalar
 clear
-echo "complete"
+echo "Completado!!!"
